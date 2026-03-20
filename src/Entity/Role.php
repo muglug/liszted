@@ -34,6 +34,12 @@ class Role
         return $row !== null ? self::fromRow($row) : null;
     }
 
+    public static function search(string $name): ?int
+    {
+        $row = Connection::fetch('SELECT id FROM `role` WHERE name = ?', [$name]);
+        return $row !== null ? (int) $row['id'] : null;
+    }
+
     /**
      * @return list<self>
      */
