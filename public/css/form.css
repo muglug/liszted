@@ -1,0 +1,335 @@
+form{
+	margin: 20px;
+}
+
+fieldset{
+	margin-bottom: 30px;
+}
+
+legend{
+	font-size: 20px;
+	line-height: 22px;
+	padding-bottom: 15px;
+}
+
+.ic, .delete{
+	background: url("/img/icons.png") no-repeat;
+}
+
+.field-row{
+	clear: left;
+	margin-bottom: 10px;
+	-moz-user-select: none;  
+    -webkit-user-select: none;  
+    -ms-user-select: none;
+	user-select: none;
+}
+.field-row input, .field-row select, .field-row button, .field-row .field, .datepicker .date, .datepicker .time, .datepicker{
+	vertical-align: top;
+	margin: 0 10px 0 0;
+	display: inline-block;
+}
+
+input[type=text],
+input[type=password],
+textarea{
+	font-size: 14px;
+	line-height: 20px;
+	border: 0;
+	background: #FFF;
+	border: 1px solid rgba(0, 0, 0, 0.35);
+	border-radius: 1px;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	padding: 5px 5px 3px;
+	-moz-user-select: text  
+    -webkit-user-select: text;  
+    -ms-user-select: text;
+	user-select: text;
+	width: 175px;
+}
+input[type=text].wide{
+	width:400px;
+}
+
+textarea.wide {
+	width: 600px;
+	height: 150px;
+}
+
+button, a.button, button.venue:active, .datepicker table td:hover > div, .datepicker .date table td.on > div{
+	background: #b395c2; /* Old browsers */
+	background: -moz-linear-gradient(top, #b395c2 0%, #7e4b98 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b395c2), color-stop(100%,#7e4b98)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #b395c2 0%,#7e4b98 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #b395c2 0%,#7e4b98 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #b395c2 0%,#7e4b98 100%); /* IE10+ */
+	background: linear-gradient(top, #b395c2 0%,#7e4b98 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b395c2', endColorstr='#7e4b98',GradientType=0 ); /* IE6-9 */
+}
+
+select{
+	border: 1px solid #919191;
+	border-radius: 4px;
+	padding:5px 8px 4px;
+	margin: 0;
+	text-shadow: 0 1px 0 #FFF;
+	-moz-appearance: none;
+	background: #fbfbfb; /* Old browsers */
+	background: -moz-linear-gradient(top, #fbfbfb 0%, #e7e7e7 100%); /* FF3.6+ */
+	background: url(/img/arrow.png) right center no-repeat, -o-linear-gradient(top, #fbfbfb 0%,#e7e7e7 100%); /* Opera 11.10+ */
+	background: url(/img/arrow.png) right center no-repeat, -ms-linear-gradient(top, #fbfbfb 0%,#e7e7e7 100%); /* IE10+ */
+	background: linear-gradient(top, #fbfbfb 0%,#e7e7e7 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#e7e7e7',GradientType=0 ); /* IE6-9 */
+	border: 1px solid #
+}
+
+button, a.button{
+	margin: 0.5em 0 0 0;
+	color:#FFF;
+	border:1px solid #462258;
+	border-radius: 4px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.8);
+	padding: 5px 10px 4px;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+	text-decoration: none;
+	text-align:left;
+	display: inline-block;
+}
+button:active{
+	color: #e9deed;
+	background: #84569b; /* Old browsers */
+	background: -moz-linear-gradient(top, #84569b 0%, #581a78 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#84569b), color-stop(100%,#581a78)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #84569b 0%,#581a78 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #84569b 0%,#581a78 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #84569b 0%,#581a78 100%); /* IE10+ */
+	background: linear-gradient(top, #84569b 0%,#581a78 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84569b', endColorstr='#581a78',GradientType=0 ); /* IE6-9 */
+}
+
+.datepicker select{
+	padding: 2px 6px 1px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	select{
+		padding-right: 30px;
+		background: url(/img/arrow.png) right center no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fbfbfb), color-stop(100%,#e7e7e7)); /* Chrome,Safari4+ */
+		background: url(/img/arrow.png) right center no-repeat, -webkit-linear-gradient(top, #fbfbfb 0%,#e7e7e7 100%); /* Chrome10+,Safari5.1+ */
+	}
+	.datepicker select{
+		padding-right: 30px;
+	}
+}
+.field select{
+	border-radius: 0;
+	float:left;
+	display:block;
+	margin:0 -1px 0 0;
+}
+
+.field select:first-child{
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+.field select:last-child{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.datepicker{
+	height:195px;
+	margin-bottom:15px;
+}
+.datepicker .date{
+	background: #eee;
+	border: 1px solid #CCC;
+	border-radius: 6px;
+	padding:4px;
+	cursor: default;
+	width:210px;
+}
+.datepicker .time{
+	width:180px;
+}
+.datepicker .date .ic{
+	width: 16px;
+	height: 16px;
+	background-position: -36px -2px;
+	float:left;
+	margin: 3px 3px 0 0;
+	opacity:0.5;
+}
+.datepicker .date .ic.right{
+	background-position: -54px -2px;
+	margin: 3px 0 0 1px;
+}
+.datepicker .date .ic:hover{
+	opacity: 1;
+}
+.datepicker .date .field{
+	margin: 0 1px 0 0;
+	display: block;
+	float:left;
+}
+
+.datepicker .date .field select:first-child{
+	width:105px;
+}
+.datepicker .date .field select:last-child{
+	width: 68px;
+}
+.datepicker table{
+	clear: left;
+}
+.datepicker table td, .datepicker table th{
+	text-align:center;
+	width: 30px;
+}
+.datepicker table td > div{
+	padding: 3px 0 2px 0;
+	border-radius: 4px;
+	margin-right: 1px;
+	margin-bottom: 1px;
+}
+.datepicker table td.today > div{
+	box-shadow: inset 0 0 1px #999;
+}
+.datepicker table td:hover > div, .datepicker table td.on > div{
+	color: #FFF;
+	box-shadow: inset 0 0 1px rgba(0,0,0,0.5), inset 0 1px 0 rgba(0,0,0,0.5);
+	text-shadow: 0 1px 0 #000;
+}
+.datepicker table td:hover > div{
+	background: #b3b3b3; /* Old browsers */
+	background: -moz-linear-gradient(top, #b3b3b3 0%, #7d7d7d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b3b3b3), color-stop(100%,#7d7d7d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* IE10+ */
+	background: linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3b3b3', endColorstr='#7d7d7d',GradientType=0 ); /* IE6-9 */
+}
+.datepicker table th{
+	padding: 7px 0 3px 0;
+	color: #a9a9a9;
+}
+
+.datepicker .time .field{
+	margin-bottom:10px;
+}
+
+.venue-init{
+	display: inline-block;
+	width: 270px;
+}
+.venue-init input{
+	margin-bottom: 10px;
+}
+
+button.venue{
+	border-color: #7c4997;
+	color: #79349d;
+	text-shadow: 0 1px 0 #FFF;
+	background: #f3dcff; /* Old browsers */
+	background: -moz-linear-gradient(top, #f3dcff 14%, #e6b3ff 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(14%,#f3dcff), color-stop(100%,#e6b3ff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f3dcff 14%,#e6b3ff 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f3dcff 14%,#e6b3ff 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #f3dcff 14%,#e6b3ff 100%); /* IE10+ */
+	background: linear-gradient(top, #f3dcff 14%,#e6b3ff 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3dcff', endColorstr='#e6b3ff',GradientType=0 ); /* IE6-9 */
+	max-width:270px;
+	position:relative;
+	padding-left:28px;
+	padding-right:38px;
+}
+button.venue:active{
+	color: #FFF;
+	text-shadow: none;
+}
+
+button.venue .ic, button.venue .delete{
+	width: 16px;
+	height:17px;
+	position:absolute;
+	top:5px;
+	left:6px;
+	background-position:-1px -1px;
+}
+button.venue .delete{
+	left: auto;
+	right: 0;
+	top:0;
+	width: 23px;
+	height: 25px;
+	background-position: -72px 5px;
+}
+button.venue:active .delete:hover{
+	background-position: -72px -13px;
+}
+button.venue:active .ic{
+	background-position: -19px -1px;
+}
+button.delete-performance{
+	margin-top: 10px;
+}
+
+button.other{
+	color:#FFF;
+	border-color: #494949;
+	background: #b3b3b3; /* Old browsers */
+	background: -moz-linear-gradient(top, #b3b3b3 0%, #7d7d7d 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b3b3b3), color-stop(100%,#7d7d7d)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* IE10+ */
+	background: linear-gradient(top, #b3b3b3 0%,#7d7d7d 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3b3b3', endColorstr='#7d7d7d',GradientType=0 ); /* IE6-9 */
+}
+button.cancel{
+	float:right;
+}
+
+.ui-autocomplete{
+	color: #474747;
+	width: 185px !important;
+	text-shadow:0 1px 0 #FFF;
+	background: #e4e4e4; /* Old browsers */
+	background: -moz-linear-gradient(top,  #e4e4e4 0%, #c8c8c8 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4e4e4), color-stop(100%,#c8c8c8)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #e4e4e4 0%,#c8c8c8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #e4e4e4 0%,#c8c8c8 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #e4e4e4 0%,#c8c8c8 100%); /* IE10+ */
+	background: linear-gradient(top,  #e4e4e4 0%,#c8c8c8 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4e4e4', endColorstr='#c8c8c8',GradientType=0 ); /* IE6-9 */
+	
+	border: 1px solid #5e5e5e;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	
+	box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+}
+.ui-autocomplete a.ui-corner-all{
+	padding:3px 5px;
+	display:block;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.ui-autocomplete a.ui-corner-all:hover, .ui-autocomplete a.ui-corner-all.ui-state-hover{
+	color:#FFF;
+	background: #8b56a7;
+	text-shadow:0 -1px 0 #000;
+	box-shadow: inset 0 1px 0 #68407d, inset 0 -1px 0 #68407d;
+}
+#performers .field-row{
+	margin-bottom: -1px;
+}
+#performers input:first-child{
+	width: 200px;
+}
+#performers input{
+	margin: 0 -1px 0 0;
+}
+#p_addperformer{
+	margin-top: 16px;
+}

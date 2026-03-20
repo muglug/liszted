@@ -1,0 +1,47 @@
+/* CSS Document */
+
+.programme-list, .programme{
+	width: 960px;
+	margin: 0 auto;
+}
+
+.calendar.old{
+	display: none;
+}
+
+.programmes{
+	margin:20px 0;
+	clear: both;
+}
+.programmes .programme{
+	padding:10px 0;
+	border-bottom: 1px solid #CCC;
+	overflow: hidden;
+	zoom: 1;
+	background: url("/img/icon_flat_small.png") left 10px no-repeat;
+	padding-left:24px;
+}
+.programmes .programme .work-list{
+	width: 320px;
+	float:left;
+	margin-right: 20px;
+}
+.programmes .programme .dates{
+	width: 250px;
+	float:left;
+	margin-right: 20px;
+}
+.programmes .programme .contributers{
+	width: 290px;
+	float:left;
+}
+.programmes .programme a{
+	color: #833169;
+	text-decoration: none;
+}
+.programmes .programme a strong{
+	font-weight: bold;
+}
+#performances, #programme_works{
+	margin-top: 15px;
+}

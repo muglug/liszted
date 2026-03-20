@@ -1,0 +1,123 @@
+/* CSS Document */
+
+.user-chooser{
+	width: 900px;
+	margin: 100px auto;
+	text-align: center;
+}
+.user-chooser h2{
+	font-size: 24px;
+	margin-bottom: 50px;
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+}
+.user-chooser.picked h2{
+	opacity: 0;
+}
+.user-chooser ul{
+	position: relative;
+}
+
+.user-chooser ul li{
+	display: block;
+	text-align: center;
+	width: 148px;
+	height: 148px;
+	position: absolute;
+	border-radius: 90px;
+	background: #d892de;
+	opacity: 0.75;
+	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+.user-chooser ul li:hover{
+	opacity: 1;
+}
+.user-chooser ul li.picked,
+.user-chooser.picked ul li{
+	left: 356px !important;
+}
+.user-chooser.picked ul li{
+	opacity: 0;
+}
+.user-chooser.picked ul li.picked{
+	z-index: 3;
+	opacity: 1;
+}
+
+.user-chooser ul li:last-child{
+	margin-right: 0;
+}
+.user-chooser ul li a:first-child{
+	display: block;
+	width: 128px;
+	height: 128px;
+	margin-left: 9px;
+	margin-top: 9px;
+	border-radius: 90px;
+	border: 1px solid #9a30a3;
+	background-color: #FFF;
+	position: relative;
+	z-index: 2;
+}
+.user-chooser ul li:hover a:first-child{
+	border-color: #82038d;
+}
+.user-chooser ul li a:last-child{
+	color: #9a30a3;
+	text-decoration: none;
+	position: absolute;
+	text-align: center;
+	top: 110px;
+	left: 0;
+	padding-top: 30px;
+	width: 148px;
+	-webkit-transition: top 0.1s ease-in, opacity 0.1s linear;
+	-moz-transition: top 0.1s ease-in, opacity 0.1s linear;
+	font-weight: bold;
+	opacity: 0;
+}
+.user-chooser ul li:hover a:last-child,
+.user-chooser ul li.picked a:last-child{
+	opacity: 1;
+	top: 130px;
+	-webkit-transition: top 0.2s ease-out, opacity 0.1s linear;
+	-moz-transition: top 0.2s ease-out, opacity 0.1s linear;
+}
+.user-chooser input{
+	width: 178px !important;
+}
+.user-chooser input,
+.user-chooser button{
+	display: inline-block;
+	text-align:center;
+}
+.user-chooser.picked input{
+	display: inline-block;
+	margin-top: 200px;
+}
+.user-chooser.picked button{
+	display: inline-block;
+	text-align: center;
+	margin: 5px 0;
+	width: 188px;
+	font-weight: bold;
+}
+.user-chooser > form > a{
+	display: none;
+	text-decoration: none;
+	color: #9a30a3;
+}
+.user-chooser .warning{
+	
+}
+.user-chooser.picked .warning{
+	display: block;
+	padding: 5px 0;
+}
+.user-chooser.picked .warning:empty{
+	display: none;
+}
+.user-chooser.picked > form > a{
+	display: block;
+}

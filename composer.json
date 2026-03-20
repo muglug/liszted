@@ -1,0 +1,30 @@
+{
+    "name": "liszted/liszted",
+    "description": "Liszted - concert and performance listing application",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3"
+    },
+    "require-dev": {
+        "vimeo/php-mysql-engine": "^0.7",
+        "phpunit/phpunit": "^10.5",
+        "vimeo/psalm": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Liszted\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Liszted\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    }
+}
