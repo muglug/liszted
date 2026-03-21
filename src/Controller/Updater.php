@@ -11,13 +11,17 @@ class Updater
     public static function city(string $name, string $state, string $country): int|string
     {
         $row = Connection::fetch(
-            "SELECT id FROM city WHERE name = ? AND state = ? AND country = ?",
-            [$name, $state, $country]
+            "SELECT id FROM city WHERE name = ? AND (state = ? OR (state IS NULL AND ? = '')) AND country = ?",
+            [$name, $state, $state, $country]
         );
         if ($row !== null) {
             return (int) $row['id'];
         }
-        return Connection::insert('city', ['name' => $name, 'state' => $state, 'country' => $country]);
+        Connection::execute(
+            "INSERT INTO city (name, state, country) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)",
+            [$name, $state, $country]
+        );
+        return Connection::getPdo()->lastInsertId();
     }
 
     public static function contributer(string $firstName, string $lastName = "", ?int $rolePrimary = null): int|string
