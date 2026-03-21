@@ -14,7 +14,7 @@ use Liszted\Database\Connection;
 
 Connection::execute("DELETE FROM series WHERE user = ?", [14]);
 
-$source = file_get_contents("http://thomasades.com/performances/export.php");
+$source = file_get_contents("https://thomasades.com/performances/export");
 
 $calendar = json_decode($source, true);
 
@@ -43,7 +43,7 @@ foreach ($calendar as $programme) {
         $pl_id = Connection::upsert(0, "programme_line", [
             "text" => html_entity_decode($work[0], ENT_COMPAT, "UTF-8"),
             "programme" => $programme_id,
-            "url" => "http://www.thomasades.com/compositions/" . $work[1],
+            "url" => "https://thomasades.com/compositions/" . $work[1],
         ]);
         Connection::upsert(0, "contribution", [
             "contributer" => $ades_id,
