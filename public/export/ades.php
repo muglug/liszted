@@ -12,7 +12,7 @@ use Liszted\Model\CalendarModel;
 
 $contributer_id = Search::contributer("Thomas Adès");
 
-$programmes = Search::programmesByContributer($contributer_id, 30000);
+$programmes = Search::programmesByContributer($contributer_id, 30000, true);
 
 $calendar = new CalendarModel();
 foreach ($programmes as $programme) {
