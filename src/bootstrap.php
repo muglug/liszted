@@ -5,8 +5,15 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Liszted\Controller\Constants;
+use Liszted\Database\Connection;
 
-date_default_timezone_set('UTC');
-setlocale(LC_ALL, 'en_US.UTF8');
+$configFile = dirname(__DIR__) . '/config.php';
+if (file_exists($configFile)) {
+    require_once $configFile;
+}
+
+if (defined('CONFIG')) {
+    Connection::configure(CONFIG);
+}
 
 Constants::init();
