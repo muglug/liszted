@@ -64,32 +64,36 @@ class Search
         $yesterday = date("Y-m-d", time() - 3600 * 24);
 
         $sql = "
-        SELECT *,
-            (SELECT start FROM performance WHERE programme = programme.id ORDER BY start ASC LIMIT 1) AS start
+        SELECT programme.*, MIN(perf.start) AS start
         FROM programme
-        WHERE hidden = 0
-          AND id IN (
-            SELECT programme FROM performance WHERE id IN (
-                SELECT performance FROM contribution WHERE contributer = ?
-            )
-            OR programme IN (
-                SELECT programme FROM contribution WHERE contributer = ?
-            )
-            OR programme IN (
-                SELECT id FROM programme WHERE series IN (
-                    SELECT series FROM contribution WHERE contributer = ?
-                )
-            )
-            OR programme IN (
-                SELECT (SELECT programme FROM programme_line WHERE programme_line.id = contribution.programme_line) AS programme
-                FROM contribution WHERE contributer = ?
-            )
+        INNER JOIN performance perf ON perf.programme = programme.id
+        WHERE programme.hidden = 0
+          AND programme.id IN (
+            SELECT perf2.programme FROM performance perf2
+            INNER JOIN contribution c1 ON c1.performance = perf2.id AND c1.contributer = ?
+
+            UNION
+
+            SELECT c2.programme FROM contribution c2
+            WHERE c2.contributer = ? AND c2.programme IS NOT NULL
+
+            UNION
+
+            SELECT p2.id FROM programme p2
+            INNER JOIN contribution c3 ON c3.series = p2.series AND c3.contributer = ?
+
+            UNION
+
+            SELECT pl.programme FROM programme_line pl
+            INNER JOIN contribution c4 ON c4.programme_line = pl.id AND c4.contributer = ?
           )";
 
         $params = [$contributerId, $contributerId, $contributerId, $contributerId];
 
+        $sql .= " GROUP BY programme.id";
+
         if ($futureOnly) {
-            $sql .= " AND (SELECT start FROM performance WHERE programme = programme.id ORDER BY start DESC LIMIT 1) > ?";
+            $sql .= " HAVING MAX(perf.start) > ?";
             $params[] = $yesterday;
         }
 
@@ -106,16 +110,19 @@ class Search
     {
         $yesterday = date("Y-m-d", time() - 3600 * 24);
 
-        $sql = "SELECT *,
-            (SELECT start FROM performance WHERE programme = programme.id ORDER BY start ASC LIMIT 1) AS start
+        $sql = "SELECT programme.*, MIN(perf.start) AS start
         FROM programme
-        WHERE hidden = 0
-          AND (SELECT user FROM series WHERE series.id = programme.series) = ?";
+        INNER JOIN series ON series.id = programme.series
+        INNER JOIN performance perf ON perf.programme = programme.id
+        WHERE programme.hidden = 0
+          AND series.user = ?";
 
         $params = [$userId];
 
+        $sql .= " GROUP BY programme.id";
+
         if ($futureOnly) {
-            $sql .= " AND (SELECT start FROM performance WHERE programme = programme.id ORDER BY start DESC LIMIT 1) > ?";
+            $sql .= " HAVING MAX(perf.start) > ?";
             $params[] = $yesterday;
         }
 
@@ -133,21 +140,20 @@ class Search
         $yesterday = date("Y-m-d", time() - 3600 * 24);
 
         $sql = "
-        SELECT *,
-            (SELECT start FROM performance WHERE programme = programme.id ORDER BY start ASC LIMIT 1) AS start
+        SELECT programme.*, MIN(perf.start) AS start
         FROM programme
-        WHERE hidden = 0
-          AND id IN (
-            SELECT programme FROM programme_line WHERE text LIKE ?
-            AND programme_line.id IN (
-                SELECT programme_line FROM contribution WHERE contributer = ? AND programme_line IS NOT NULL
-            )
-          )";
+        INNER JOIN programme_line pl ON pl.programme = programme.id
+        INNER JOIN contribution c ON c.programme_line = pl.id AND c.contributer = ?
+        INNER JOIN performance perf ON perf.programme = programme.id
+        WHERE programme.hidden = 0
+          AND pl.text LIKE ?";
 
-        $params = [$work, $contributerId];
+        $params = [$contributerId, $work];
+
+        $sql .= " GROUP BY programme.id";
 
         if ($futureOnly) {
-            $sql .= " AND (SELECT start FROM performance WHERE programme = programme.id ORDER BY start DESC LIMIT 1) > ?";
+            $sql .= " HAVING MAX(perf.start) > ?";
             $params[] = $yesterday;
         }
 

@@ -47,17 +47,19 @@ class ProgrammeController
      */
     public function programmeLines(): array
     {
-        $rows = Connection::fetchAll('SELECT * FROM programme_line WHERE programme = ?', [$this->id]);
+        $rows = Connection::fetchAll(
+            'SELECT pl.id, pl.text,
+                    (SELECT c.last_name FROM contributer c
+                     INNER JOIN contribution ct ON ct.contributer = c.id
+                     WHERE ct.programme_line = pl.id LIMIT 1) AS composer_last_name
+             FROM programme_line pl WHERE pl.programme = ?',
+            [$this->id]
+        );
         $lines = [];
         foreach ($rows as $l) {
-            $contributerRow = Connection::fetch(
-                'SELECT * FROM contributer WHERE id IN (SELECT contributer FROM contribution WHERE programme_line = ?) LIMIT 1',
-                [$l['id']]
-            );
             $composerName = '';
-            if ($contributerRow) {
-                $composer = new ContributerController((int) $contributerRow['id'], $contributerRow);
-                $composerName = '<strong>' . htmlspecialchars($composer->last_name ?? '', ENT_QUOTES, 'UTF-8') . '</strong> ';
+            if (!empty($l['composer_last_name'])) {
+                $composerName = '<strong>' . htmlspecialchars($l['composer_last_name'], ENT_QUOTES, 'UTF-8') . '</strong> ';
             }
             $lines[] = $composerName . htmlspecialchars($l['text'] ?? '', ENT_QUOTES, 'UTF-8');
         }
@@ -70,30 +72,40 @@ class ProgrammeController
     public function getWorkModels(): array
     {
         $rows = Connection::fetchAll('SELECT * FROM programme_line WHERE programme = ?', [$this->id]);
+        if (empty($rows)) {
+            return [];
+        }
+
+        $lineIds = array_map(fn(array $r): int => (int) $r['id'], $rows);
+        $placeholders = implode(',', array_fill(0, count($lineIds), '?'));
+
+        $contributerRows = Connection::fetchAll(
+            "SELECT contributer.id, contributer.last_name, contributer.first_name,
+                    role.name AS role_name, contribution.programme_line
+             FROM contribution
+             INNER JOIN contributer ON contributer.id = contribution.contributer
+             LEFT OUTER JOIN role ON role.id = contribution.role
+             WHERE contribution.programme_line IN ({$placeholders})",
+            $lineIds
+        );
+
+        $contributersByLine = [];
+        foreach ($contributerRows as $c) {
+            $lineId = (int) $c['programme_line'];
+            $contributer = new ContributerModel();
+            $contributer->first_name = $c['first_name'];
+            $contributer->last_name = $c['last_name'];
+            $contributer->id = (int) $c['id'];
+            $contributer->role = $c['role_name'];
+            $contributersByLine[$lineId][] = $contributer;
+        }
+
         $programmeLines = [];
         foreach ($rows as $l) {
-            $contributerRows = Connection::fetchAll(
-                'SELECT contributer.id, contributer.last_name, contributer.first_name,
-                        contributer.role_primary, role.name AS role_name
-                 FROM contributer
-                 LEFT OUTER JOIN contribution ON contribution.programme_line = ? AND contribution.contributer = contributer.id
-                 LEFT OUTER JOIN role ON role.id = contribution.role
-                 WHERE contributer.id IN (SELECT contributer FROM contribution WHERE programme_line = ?)',
-                [$l['id'], $l['id']]
-            );
-            $contributers = [];
-            foreach ($contributerRows as $c) {
-                $contributer = new ContributerModel();
-                $contributer->first_name = $c['first_name'];
-                $contributer->last_name = $c['last_name'];
-                $contributer->id = (int) $c['id'];
-                $contributer->role = $c['role_name'];
-                $contributers[] = $contributer;
-            }
             $work = new WorkModel();
             $work->url = $l['url'];
             $work->name = $l['text'];
-            $work->contributers = $contributers;
+            $work->contributers = $contributersByLine[(int) $l['id']] ?? [];
             $programmeLines[] = $work;
         }
         return $programmeLines;
@@ -264,12 +276,10 @@ class ProgrammeController
     private function getVenueDates(int $venueId): array
     {
         $dates = [];
-        $rows = Connection::fetchAll(
-            'SELECT start, url, venue FROM performance WHERE venue = ? AND programme = ? ORDER BY start',
-            [$venueId, $this->id]
-        );
-        foreach ($rows as $s) {
-            $dates[] = [$s['start'], $s['url'], isset($s['venue']) ? (int) $s['venue'] : null];
+        foreach ($this->performances as $performance) {
+            if ($performance->venue_id === $venueId && $performance->start !== null) {
+                $dates[] = [$performance->start, $performance->url ?? null, $performance->venue_id];
+            }
         }
         return $dates;
     }
