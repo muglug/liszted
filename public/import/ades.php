@@ -12,8 +12,6 @@ use Liszted\Controller\Search;
 use Liszted\Controller\Updater;
 use Liszted\Database\Connection;
 
-Connection::execute("DELETE FROM series WHERE user = ?", [14]);
-
 $source = file_get_contents("https://thomasades.com/performances/export");
 
 $calendar = json_decode($source, true);
@@ -34,10 +32,16 @@ foreach ($performance_search as $ps) {
 $country_lookup = array_flip(Constants::$countries);
 $country_lookup["USA"] = "US";
 
-foreach ($calendar as $programme) {
-    $series_id = Connection::upsert(0, "series", ["name" => "", "user" => 14]);
+Connection::getPdo()->beginTransaction();
 
-    $programme_id = Connection::upsert(0, "programme", ["series" => $series_id]);
+try {
+
+Connection::execute("DELETE FROM series WHERE user = ?", [14]);
+
+foreach ($calendar as $programme) {
+    $series_id = (int) Connection::upsert(0, "series", ["name" => "", "user" => 14]);
+
+    $programme_id = (int) Connection::upsert(0, "programme", ["series" => $series_id]);
 
     foreach ($programme[1] as $work) {
         $pl_id = Connection::upsert(0, "programme_line", [
@@ -118,4 +122,10 @@ AND (start >= ? AND start <= ?) AND performance.id IN (SELECT id FROM performanc
     }
 
     echo "date: " . implode("\n", $dates) . "\n";
+}
+
+Connection::getPdo()->commit();
+} catch (\Throwable $e) {
+    Connection::getPdo()->rollBack();
+    throw $e;
 }
